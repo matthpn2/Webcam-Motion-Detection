@@ -1,5 +1,5 @@
-import cv2, time, pandas
 from datetime import datetime
+import cv2, time, pandas
 
 count_delay = 0                                     # count to delay video capture
 first_frame = None                                  # skips over the first video frame
@@ -34,7 +34,7 @@ while True:
 
     # threshold frame with removed black holes in the bigger white areas
     threshold_frame = cv2.threshold(delta_frame, 30, 255, cv2.THRESH_BINARY)[1]
-    threshold_frame = cv2.dilate(threshold_frame, None, iterations = 2)
+    threshold_frame = cv2.dilate(threshold_frame, None, iterations=2)
 
     # find and create contours of white objects in threshhold frame
     (_,cnts,_) = cv2.findContours(threshold_frame.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -72,7 +72,7 @@ while True:
     
 # add all the times in timestamps to the data frame and convert data frame into csv file
 for i in range(0, len(timestamps), 2):
-    df = df.append({"start": timestamps[i], "end": timestamps[i+1]}, ignore_index = True)
+    df = df.append({"start": timestamps[i], "end": timestamps[i+1]}, ignore_index=True)
 df.to_csv("timestamps.csv")
 
 # release the camera and destroy the window
